@@ -1,4 +1,5 @@
-const { Basket } = require("../Basket.js");
+const { Basket } = require("../classes/Basket.js");
+const { Till } = require("../classes/Till.js");
 
 describe("Basket.presentContents()", () => {
   it("returns correct object when called with a single item", () => {
@@ -47,5 +48,16 @@ describe("Basket.presentContents()", () => {
       E: 1,
       F: 1,
     });
+  });
+});
+
+describe("Till.addProduct()", () => {
+  it("updates the products property array with a correctly formed object ", () => {
+    const testProduct = ["A", 50, 3, 20];
+    const testTill = new Till();
+    testTill.addProduct(testProduct);
+    expect(testTill.products).toEqual([
+      { A: { price: 50, multibuy: 3, saving: 20 } },
+    ]);
   });
 });
