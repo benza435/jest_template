@@ -1,31 +1,23 @@
+const { findPrice } = require("../utils");
+
 class Till {
   constructor() {
-    this.products = [];
+    this.products = {};
     this.subtotal = 0;
   }
 
   addProduct(productProperties) {
-    this.products.push({
-      [productProperties[0]]: {
-        price: productProperties[1],
-        multibuy: productProperties[2],
-        saving: productProperties[3],
-      },
-    });
+    let productCode = productProperties[0];
+    this.products[productCode] = {
+      price: productProperties[1],
+      multibuy: productProperties[2],
+      saving: productProperties[3],
+    };
   }
 
   subtotaller(basket) {
     basket.contents.forEach((item) => {
-      let index = 0;
-      // how to make it equal 1 when item is B?
-      console.log(this.products);
-
-      let condition = this.products.hasOwnProperty(item);
-
-      index = this.products.findIndex(condition);
-      console.log(index);
-
-      this.subtotal += this.products[index][item].price;
+      this.subtotal += findPrice(item, this.products);
     });
 
     return this.subtotal;
