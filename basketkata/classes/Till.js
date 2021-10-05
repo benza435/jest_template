@@ -1,4 +1,4 @@
-const { findPrice } = require("../src/utils.js");
+const { findPrice } = require("../utils.js");
 
 class Till {
   constructor() {

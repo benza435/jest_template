@@ -1,6 +1,10 @@
 class Basket {
-  constructor(contents) {
+  constructor(contents = []) {
     this.contents = contents;
+  }
+  addItem(item) {
+    this.contents.push(item);
+    return this.contents;
   }
   presentContents() {
     const organisedContents = {};

@@ -1,6 +1,6 @@
 const { Basket } = require("../classes/Basket.js");
 const { Till } = require("../classes/Till.js");
-const { findPrice } = require("../src/utils");
+const { findPrice } = require("../utils");
 
 describe("Basket.presentContents()", () => {
   it("returns correct object when called with a single item", () => {
@@ -49,5 +49,13 @@ describe("Basket.presentContents()", () => {
       E: 1,
       F: 1,
     });
+  });
+});
+
+describe("basket.addItem()", () => {
+  it("adds an item to the basket!", () => {
+    const testBasket = new Basket();
+
+    expect(testBasket.addItem("A")).toEqual(["A"]);
   });
 });
