@@ -109,3 +109,58 @@ describe("Till.subtotaller()", () => {
     expect(testTill.subtotaller(testBasket)).toEqual(30);
   });
 });
+
+describe("Till.applyDiscount", () => {
+  it("returns subtotal when no discount needs to be applied", () => {
+    const testTill = new Till();
+    const testProducts = [
+      ["A", 50, 3, 20],
+      ["B", 30, 2, 15],
+      ["C", 20, null, 0],
+      ["D", 15, null, 0],
+    ];
+    testProducts.forEach((product) => testTill.addProduct(product));
+    const testBasket = new Basket(["A", "B", "C", "D", "D"]);
+    const testSubtotal = testTill.subtotaller(testBasket);
+    expect(testTill.applyDiscount(testSubtotal, testBasket)).toEqual(130);
+  });
+  it("returns discounted total for a single group of qualifying items", () => {
+    const testTill = new Till();
+    const testProducts = [
+      ["A", 50, 3, 20],
+      ["B", 30, 2, 15],
+      ["C", 20, null, 0],
+      ["D", 15, null, 0],
+    ];
+    testProducts.forEach((product) => testTill.addProduct(product));
+    const testBasket = new Basket(["A", "A", "A"]);
+    const testSubtotal = testTill.subtotaller(testBasket);
+    expect(testTill.applyDiscount(testSubtotal, testBasket)).toEqual(130);
+  });
+  it("returns correct total for multiple groups", () => {
+    const testTill = new Till();
+    const testProducts = [
+      ["A", 50, 3, 20],
+      ["B", 30, 2, 15],
+      ["C", 20, null, 0],
+      ["D", 15, null, 0],
+    ];
+    testProducts.forEach((product) => testTill.addProduct(product));
+    const testBasket = new Basket(["A", "A", "A", "B", "B", "B"]);
+    const testSubtotal = testTill.subtotaller(testBasket);
+    expect(testTill.applyDiscount(testSubtotal, testBasket)).toEqual(205);
+  });
+  it("returns correct total for multiple groups (alternate)", () => {
+    const testTill = new Till();
+    const testProducts = [
+      ["A", 50, 3, 20],
+      ["B", 30, 2, 15],
+      ["C", 20, null, 0],
+      ["D", 15, null, 0],
+    ];
+    testProducts.forEach((product) => testTill.addProduct(product));
+    const testBasket = new Basket(["D", "C", "B", "B", "B", "B"]);
+    const testSubtotal = testTill.subtotaller(testBasket);
+    expect(testTill.applyDiscount(testSubtotal, testBasket)).toEqual(125);
+  });
+});

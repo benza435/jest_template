@@ -23,8 +23,20 @@ class Till {
     return this.subtotal;
   }
   applyDiscount(subtotal, basket) {
-    // count up groups of objects according to discount rules
-    // return new price
+    const productsInBasket = Object.keys(this.products);
+    let discount = 0;
+    productsInBasket.forEach((product) => {
+      if (
+        basket.presentContents()[product] >= this.products[product].multibuy &&
+        this.products[product].multibuy != null
+      ) {
+        discount +=
+          Math.floor(
+            basket.presentContents()[product] / this.products[product].multibuy
+          ) * this.products[product].saving;
+      }
+    });
+    return subtotal - discount;
   }
 }
 
