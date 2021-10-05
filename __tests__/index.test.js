@@ -1,7 +1,9 @@
-const {jestTest} = require('../index.js')
+const { Basket } = require("../Basket.js");
 
-describe('jest configuration OK?',()=>{
-    it('passes this test...',()=>{
-        expect(jestTest()).toEqual(1)
-    })
-})
+describe("Basket.organise()", () => {
+  it("returns {'A':1}, when called with ['A'] ", () => {
+    const testContents = ["A"];
+    const testBasket = new Basket(testContents);
+    expect(testBasket.organise()).toEqual({ A: 1 });
+  });
+});
