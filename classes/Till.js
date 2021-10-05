@@ -1,6 +1,7 @@
 class Till {
   constructor() {
     this.products = [];
+    this.subtotal = 0;
   }
 
   addProduct(productProperties) {
@@ -13,9 +14,21 @@ class Till {
     });
   }
 
-  subtotal(basket) {
-    //foreach item in basket subtotal += item.price
-    //return price
+  subtotaller(basket) {
+    basket.contents.forEach((item) => {
+      let index = 0;
+      // how to make it equal 1 when item is B?
+      console.log(this.products);
+
+      let condition = this.products.hasOwnProperty(item);
+
+      index = this.products.findIndex(condition);
+      console.log(index);
+
+      this.subtotal += this.products[index][item].price;
+    });
+
+    return this.subtotal;
   }
   applyDiscount(subtotal, basket) {
     // count up groups of objects according to discount rules

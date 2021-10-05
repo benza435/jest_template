@@ -60,7 +60,6 @@ describe("Till.addProduct()", () => {
       { A: { price: 50, multibuy: 3, saving: 20 } },
     ]);
   });
-
   it("updates the products property array repeatedly with multiple products", () => {
     const testTill = new Till();
     const testProducts = [
@@ -83,7 +82,7 @@ describe("Till.addProduct()", () => {
   });
 });
 
-describe("Till.subtotal()", () => {
+describe.skip("Till.subtotaller()", () => {
   it("returns collective cost of all items in basket, before discount (single item test)", () => {
     const testTill = new Till();
     const testProducts = [
@@ -92,7 +91,20 @@ describe("Till.subtotal()", () => {
       ["C", 20, null, 0],
       ["D", 15, null, 0],
     ];
+    testProducts.forEach((product) => testTill.addProduct(product));
     const testBasket = new Basket(["A"]);
-    expect(testTill.subtotal(testBasket)).toEqual(50);
+    expect(testTill.subtotaller(testBasket)).toEqual(50);
+  });
+  it("returns collective cost of all items in basket, before discount (single item test, alternate item)", () => {
+    const testTill = new Till();
+    const testProducts = [
+      ["A", 50, 3, 20],
+      ["B", 30, 2, 15],
+      ["C", 20, null, 0],
+      ["D", 15, null, 0],
+    ];
+    testProducts.forEach((product) => testTill.addProduct(product));
+    const testBasket = new Basket(["B"]);
+    expect(testTill.subtotaller(testBasket)).toEqual(30);
   });
 });
