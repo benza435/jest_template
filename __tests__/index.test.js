@@ -60,4 +60,39 @@ describe("Till.addProduct()", () => {
       { A: { price: 50, multibuy: 3, saving: 20 } },
     ]);
   });
+
+  it("updates the products property array repeatedly with multiple products", () => {
+    const testTill = new Till();
+    const testProducts = [
+      ["A", 50, 3, 20],
+      ["B", 30, 2, 15],
+      ["C", 20, null, 0],
+      ["D", 15, null, 0],
+    ];
+
+    const expected = [
+      { A: { price: 50, multibuy: 3, saving: 20 } },
+      { B: { price: 30, multibuy: 2, saving: 15 } },
+      { C: { price: 20, multibuy: null, saving: 0 } },
+      { D: { price: 15, multibuy: null, saving: 0 } },
+    ];
+    testProducts.forEach((product) => {
+      testTill.addProduct(product);
+    });
+    expect(testTill.products).toEqual(expected);
+  });
+});
+
+describe("Till.subtotal()", () => {
+  it("returns collective cost of all items in basket, before discount (single item test)", () => {
+    const testTill = new Till();
+    const testProducts = [
+      ["A", 50, 3, 20],
+      ["B", 30, 2, 15],
+      ["C", 20, null, 0],
+      ["D", 15, null, 0],
+    ];
+    const testBasket = new Basket(["A"]);
+    expect(testTill.subtotal(testBasket)).toEqual(50);
+  });
 });
